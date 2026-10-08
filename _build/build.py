@@ -14,7 +14,7 @@ SITE = {
     "name": "Tap Trench",
     "url": "https://taptrench.com",          # canonical domain (used for SEO tags + sitemap)
     "tagline": "In the trenches with you.",
-    "email": "hello@taptrench.com",
+    "email": "taptrench@gmail.com",
     "phone": "",                              # e.g. "02 0000 0000" — "" hides it
     "address": "Sydney, NSW, Australia",
     "hours": "Monday – Friday, 9am – 5pm AEST",
@@ -230,7 +230,8 @@ def head(page):
 </head>"""
 
 def header(active):
-    links = "".join(f'<li><a href="{h}"{" aria-current=\"page\"" if k == active else ""}>{n}</a></li>' for h, n, k in NAV)
+    CUR = ' aria-current="page"'
+    links = "".join(f'<li><a href="{h}"{CUR if k == active else ""}>{n}</a></li>' for h, n, k in NAV)
     ann_items = [("truck", "Free shipping Australia-wide · Shipping worldwide"), ("star", "100,000+ businesses trust Tap Trench"),
                  ("shield", "Built for life: no battery, no charging"), ("dollar", "No monthly subscription, ever"),
                  ("phoneTap", "Works with iPhone and Android")]
@@ -453,7 +454,8 @@ for p in PRODUCTS:
                           "seller": {"@type": "Organization", "name": "Tap Trench"},
                           "shippingDetails": {"@type": "OfferShippingDetails", "shippingRate": {"@type": "MonetaryAmount", "value": "0", "currency": "AUD"},
                                               "shippingDestination": {"@type": "DefinedRegion", "addressCountry": "AU"}}}}
-    gallery = "".join(f'<img{" class=\"on\"" if n == 1 else ""} src="{img(p,n)}" alt="{E(p["alts"][n-1])}" width="1400" height="1400"{"" if n == 1 else " loading=\"lazy\""}>' for n in range(1, 5))
+    ON, LAZY = ' class="on"', ' loading="lazy"'
+    gallery = "".join(f'<img{ON if n == 1 else ""} src="{img(p,n)}" alt="{E(p["alts"][n-1])}" width="1400" height="1400"{"" if n == 1 else LAZY}>' for n in range(1, 5))
     thumbs = "".join(f'<button type="button" data-thumb aria-label="Show image {n}" aria-current="{"true" if n == 1 else "false"}"><img src="{img(p,n,True)}" alt="" width="700" height="700" loading="lazy"></button>' for n in range(1, 5))
     feats = "".join(f"<li>{E(f)}</li>" for f in p["features"])
     opens = "your Google review page" if p["cat"] == "review" else "your online menu or ordering page"

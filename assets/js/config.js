@@ -9,10 +9,10 @@ window.TT = {
      It looks like: https://docs.google.com/forms/d/e/XXXXXXXX/viewform?embedded=true
      Leave "" and the page shows an "email us instead" button.                         */
   forms: {
-    contact:  "",   // Contact Us page
-    activate: "",   // Activate Your Product page
-    reseller: "",   // Become a Reseller page
-    waitlist: ""    // "Notify me" pop-up on sold-out products
+    contact:  "https://docs.google.com/forms/d/e/1FAIpQLSfKthNAHmzDUIqPO019fQp1FeY0tbluP2kq6H6indL0T3vzVg/viewform?embedded=true",   // Contact Us page
+    activate: "https://docs.google.com/forms/d/e/1FAIpQLSelJHY2-ykU2Tcx6N6MfOp8g4mNb7dVfue6CrZJ1WusC9VIUw/viewform?embedded=true",   // Activate Your Product page
+    reseller: "https://docs.google.com/forms/d/e/1FAIpQLScsPGbOgSkFe8vy9XreZ3D2eiPoPhlGFFlsInR5eMmXDTRd3A/viewform?embedded=true",   // Become a Reseller page
+    waitlist: "https://docs.google.com/forms/d/e/1FAIpQLSfNkJOBpv83-4DCIfs3AF4ynWyCVLx0c0_VzwwMpOjKveO1Tw/viewform?embedded=true"    // "Notify me" pop-up on sold-out products
   },
 
   /* ---------- Brand carousel ----------
