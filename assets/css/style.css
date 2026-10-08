@@ -479,3 +479,21 @@ select.f-input{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www
 .tform.compact .f-grid{gap:14px 12px}
 
 .mobile-menu .btn,.mobile-menu .btn:hover{color:#fff}
+
+/* brand tiles: optional mono logo + name */
+.brand{width:auto;min-width:150px;padding:0 20px;gap:10px}
+.brand img{height:26px;width:26px;max-height:none;max-width:none;filter:none;opacity:.8}
+.brand .wordmark{white-space:nowrap;padding:0;font-size:16px;color:var(--tt-ink);opacity:.78}
+.brand:hover .wordmark,.brand:hover img{opacity:1}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .brand img{filter:invert(1)}}
+:root[data-theme="dark"] .brand img{filter:invert(1)}
+
+/* brand logos: full logo on a white chip in both themes; brands without a logo show their name */
+.brand{background:#fff;border-color:#E3D8CC;width:170px;min-width:0;height:72px;padding:10px 18px;gap:0}
+.brand img{width:auto;height:auto;max-height:42px;max-width:134px;filter:grayscale(1) contrast(1.15);opacity:.8}
+.brand .wordmark{color:#3F3A35;opacity:1;font-size:16px;white-space:normal;text-align:center;line-height:1.15}
+.brand:hover img{filter:none;opacity:1}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .brand img{filter:grayscale(1) contrast(1.15)}}
+:root[data-theme="dark"] .brand img{filter:grayscale(1) contrast(1.15)}
+:root .brand:hover img{filter:none}
+@media (hover:none){:root .brand img{filter:none!important;opacity:1}}
