@@ -4,6 +4,8 @@
   var TT = window.TT || {};
   var root = document.documentElement;
   var EMAIL = document.body.getAttribute("data-email") || "";
+  var ME = document.currentScript && document.currentScript.src.match(/[?&]v=([\w-]+)/);
+  var AV = ME ? "?v=" + ME[1] : "";
   var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
   function $(s, r) { return (r || document).querySelector(s); }
   function $$(s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); }
@@ -27,7 +29,7 @@
     list.forEach(function (x, i) { (i % 2 ? b : a).push(x); });
     if (list.length < 12) { b = a = list; }
     function row(items, rev) {
-      var one = items.map(function (x) { return '<div class="brand" title="' + esc(x.name) + '">' + (x.logo ? '<img src="' + esc(x.logo) + '" alt="' + esc(x.name) + '" loading="lazy" decoding="async">' : '<span class="wordmark">' + esc(x.name) + "</span>") + "</div>"; }).join("");
+      var one = items.map(function (x) { return '<div class="brand" title="' + esc(x.name) + '">' + (x.logo ? '<img src="' + esc(x.logo + AV) + '" alt="' + esc(x.name) + '" loading="lazy" decoding="async">' : '<span class="wordmark">' + esc(x.name) + "</span>") + "</div>"; }).join("");
       var dur = Math.max(30, items.length * 4.2);
       return '<div class="marquee' + (rev ? " reverse" : "") + '"><div class="marquee-track" style="--dur:' + dur + 's">' + one + one.replace(/class="brand"/g, 'class="brand" aria-hidden="true"') + "</div></div>";
     }

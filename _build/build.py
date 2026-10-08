@@ -10,6 +10,19 @@ import json, os, html, datetime
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+def _asset_version():
+    """Short hash of CSS/JS/logo files, appended as ?v= so browsers fetch fresh files after every push."""
+    import hashlib
+    h = hashlib.sha1()
+    for sub in ("assets/css", "assets/js", "assets/logos"):
+        d = os.path.join(ROOT, sub)
+        for name in sorted(os.listdir(d)) if os.path.isdir(d) else []:
+            with open(os.path.join(d, name), "rb") as fh:
+                h.update(name.encode()); h.update(fh.read())
+    return h.hexdigest()[:8]
+
+ASSET_V = _asset_version()
+
 SITE = {
     "name": "Tap Trench",
     "url": "https://taptrench.com",          # canonical domain (used for SEO tags + sitemap)
@@ -224,7 +237,7 @@ def head(page):
 <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=IBM+Plex+Mono:wght@500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
-<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/css/style.css?v={ASSET_V}">
 <script>document.documentElement.classList.add("js");try{{var t=localStorage.getItem("tt-theme");if(t)document.documentElement.setAttribute("data-theme",t)}}catch(e){{}}</script>
 {ld}
 </head>"""
@@ -275,9 +288,9 @@ def overlays():
 <aside class="drawer" aria-label="Cart" data-drawer><div class="drawer-head"><h2>Your cart</h2><button class="icon-btn" type="button" data-drawer-close aria-label="Close cart">{icon("close")}</button></div>
 <div class="drawer-body">{icon("bag",48,1.5)}<p><b style="color:var(--tt-ink)">Your cart is empty.</b></p><p style="font-size:15px">Our plates are selling faster than we can make them. Join the waitlist and we'll reserve yours from the next batch.</p><button class="btn btn-copper btn-shine" type="button" data-waitlist="checkout">{icon("bell",18)} Join the waitlist</button><a class="btn btn-ghost" href="shop.html">Browse the shop</a><div class="pay-row" style="justify-content:center;margin-top:10px">{PAY_ROW}</div></div></aside>
 <div class="modal-back" data-modal role="dialog" aria-modal="true" aria-labelledby="wl-title"><div class="modal"><button class="icon-btn modal-close" type="button" data-modal-close aria-label="Close">{icon("close")}</button><div class="modal-head"><span class="eyebrow">Next batch</span><h2 id="wl-title">Be first in line.</h2><p class="muted" data-modal-sub></p></div><div class="modal-body" data-modal-body></div></div></div>
-<script src="assets/js/config.js" defer></script>
-<script src="assets/js/forms.js" defer></script>
-<script src="assets/js/main.js" defer></script>"""
+<script src="assets/js/config.js?v={ASSET_V}" defer></script>
+<script src="assets/js/forms.js?v={ASSET_V}" defer></script>
+<script src="assets/js/main.js?v={ASSET_V}" defer></script>"""
 
 def page(p, body):
     return head(p) + f'\n<body data-email="{SITE["email"]}">\n' + header(p.get("active", "")) + '\n<main id="main">\n' + body + "\n</main>\n" + footer() + "\n" + overlays() + "\n</body>\n</html>\n"

@@ -144,14 +144,12 @@ p{margin:0}
 .marquee{overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent)}
 .marquee-track{display:flex;width:max-content;animation:marquee var(--dur,60s) linear infinite;will-change:transform}
 .marquee.reverse .marquee-track{animation-direction:reverse}
-.marquee:hover .marquee-track{animation-play-state:paused}
 .brands{padding:56px 0 48px;border-block:1px solid var(--tt-line);background:var(--tt-surface)}
 .brands h2{text-align:center;font-size:clamp(22px,2.8vw,32px);font-weight:800;margin-bottom:30px;padding-inline:20px}
 .brands h2 strong{color:var(--tt-copper)}
 .brand-rows{display:flex;flex-direction:column;gap:14px}
 .brand{flex:0 0 auto;width:190px;height:64px;margin:0 10px;display:flex;align-items:center;justify-content:center;border-radius:14px;background:var(--tt-card);border:1px solid var(--tt-line)}
-.brand img{max-height:36px;max-width:140px;width:auto;filter:grayscale(1);opacity:.7;transition:filter .3s,opacity .3s}
-.brand:hover img{filter:none;opacity:1}
+.brand img{max-height:36px;max-width:140px;width:auto}
 .brand .wordmark{font-family:var(--font-head);font-weight:800;font-size:17px;letter-spacing:-.01em;color:var(--tt-muted);padding:0 12px;text-align:center;line-height:1.1}
 .tm-note{text-align:center;font-size:12px;color:var(--tt-muted);margin-top:22px;padding-inline:24px}
 .industry{flex:0 0 auto;margin:0 7px;padding:11px 20px;border:1.5px solid var(--tt-line);border-radius:999px;font-weight:600;font-size:16px;white-space:nowrap}
@@ -480,17 +478,9 @@ select.f-input{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www
 
 .mobile-menu .btn,.mobile-menu .btn:hover{color:#fff}
 
-/* brand tiles: optional mono logo + name */
-.brand{width:auto;min-width:150px;padding:0 20px;gap:10px}
-.brand img{height:26px;width:26px;max-height:none;max-width:none;filter:none;opacity:.8}
-.brand .wordmark{white-space:nowrap;padding:0;font-size:16px;color:var(--tt-ink);opacity:.78}
-.brand:hover .wordmark,.brand:hover img{opacity:1}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .brand img{filter:invert(1)}}
-:root[data-theme="dark"] .brand img{filter:invert(1)}
-
-/* brand logos: full logo on a white chip in both themes; brands without a logo show their name */
-.brand{background:#fff;border-color:#E3D8CC;width:170px;min-width:0;height:72px;padding:10px 18px;gap:0}
-.brand img{width:auto;height:auto;max-height:42px;max-width:134px;filter:none;opacity:1}
-.brand .wordmark{color:#3F3A35;opacity:1;font-size:16px;white-space:normal;text-align:center;line-height:1.15}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .brand img{filter:none}}
-:root[data-theme="dark"] .brand img{filter:none}
+/* brand logos: full-colour logo on a white chip in both themes; brands without a logo show their name.
+   The carousel never pauses. */
+.brand{background:#fff;border-color:#E3D8CC;width:170px;height:72px;padding:10px 18px}
+.brand img{width:auto;height:auto;max-height:42px;max-width:134px;filter:none!important;opacity:1!important}
+.brand .wordmark{color:#3F3A35;font-size:16px;white-space:normal;text-align:center;line-height:1.15;padding:0}
+.marquee:hover .marquee-track{animation-play-state:running}
