@@ -733,14 +733,13 @@ bch, bld = bc([("Home", "index.html"), ("Privacy", None)], "privacy.html")
 add("privacy.html", {"title": "Privacy Policy | Tap Trench", "desc": "How Tap Trench collects, uses and protects your personal information.", "active": "", "ld": [bld]}, f"""
 <section class="page-hero"><div class="wrap">{bch}<h1>Privacy policy.</h1><p class="muted">Last updated: {TODAY}</p></div></section>
 <section class="section flush-top"><div class="wrap prose">
-<p class="notice"><strong>Template:</strong> have this reviewed against the Privacy Act 1988 (Cth) and the Australian Privacy Principles before launch.</p>
 <p>Tap Trench (“we”, “us”) respects your privacy. This policy explains what personal information we collect, why, and how you can access or correct it.</p>
 <h2>What we collect</h2><ul><li><strong>Information you give us</strong>: your name, business name, email, phone, address and the links you ask us to program, when you activate a product, join a waitlist, apply as a reseller, contact us or place an order.</li><li><strong>Website analytics</strong>: basic, aggregated information about how this website is used.</li></ul>
 <h2>Forms</h2><p>Our contact, activation, reseller and waitlist forms are provided by Google Forms. Information you submit through them is processed by Google on our behalf and is subject to <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google's Privacy Policy</a>.</p>
 <h2>How we use it</h2><ul><li>To program and deliver your plates</li><li>To respond to enquiries and reseller applications</li><li>To let you know when waitlisted products are available</li><li>To send product updates and offers, if you've agreed (you can unsubscribe anytime)</li></ul>
 <h2>Sharing</h2><p>We don't sell your personal information. We share it only with service providers who help us run our business (such as payment, shipping, email and form providers), or where required by law.</p>
 <h2>Access and correction</h2><p>Ask to see or correct the personal information we hold about you by emailing <a href="mailto:{SITE['email']}">{SITE['email']}</a>.</p>
-<h2>Complaints</h2><p>If you have a privacy concern, contact us first and we'll respond within 30 days. If you're not satisfied, you can contact the Office of the Australian Information Commissioner (oaic.gov.au).</p>
+<h2>Complaints</h2><p>If you have a privacy concern, email us at <a href="mailto:{SITE['email']}">{SITE['email']}</a> and we'll respond within 30 days.</p>
 </div></section>
 """)
 
@@ -749,14 +748,14 @@ bch, bld = bc([("Home", "index.html"), ("Terms", None)], "terms.html")
 add("terms.html", {"title": "Terms of Use | Tap Trench", "desc": "Terms of use for the Tap Trench website and NFC tap plates.", "active": "", "ld": [bld]}, f"""
 <section class="page-hero"><div class="wrap">{bch}<h1>Terms of use.</h1><p class="muted">Last updated: {TODAY}</p></div></section>
 <section class="section flush-top"><div class="wrap prose">
-<p class="notice"><strong>Template:</strong> have these terms reviewed by a lawyer before launch.</p>
 <h2>Products and orders</h2><p>Prices are in Australian dollars and include GST where applicable. Joining a waitlist does not create an order or any obligation to buy.</p>
 <h2>Programming and locked links</h2><p>We program each plate with the link you provide and lock it for security. You're responsible for making sure the link is correct and points to lawful content. Once programmed, a plate's link can't be changed.</p>
 <h2>Reviews</h2><p>Tap Trench review plates open your review page so customers can leave their own reviews. You must not offer incentives for reviews or use our products in a way that breaks the rules of the review platform you link to.</p>
 <h2>Resellers</h2><p>Reseller pricing and terms are provided separately on approval of a reseller application.</p>
+<h2>Customer showcase</h2><p>By activating a Tap Trench product, you allow Tap Trench to display your business name and logo on our website and marketing materials to show you as a customer. You can withdraw this permission at any time by emailing <a href="mailto:{SITE['email']}">{SITE['email']}</a>, and we'll remove it from our website within 14 days.</p>
 <h2>Trademarks</h2><p>Tap Trench and its logo are our trademarks. {E(SITE['trademark'])}</p>
 <h2>Your rights</h2><p>Nothing in these terms limits any rights you have under the consumer laws of your country.</p>
-<h2>Governing law</h2><p>These terms are governed by the laws of New South Wales, Australia.</p>
+<h2>Governing law</h2><p>Tap Trench is based in Sydney, Australia, and these terms are governed by the laws of New South Wales. If something goes wrong, please email us first and we'll work with you to put it right.</p>
 </div></section>
 """)
 

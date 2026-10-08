@@ -128,7 +128,8 @@
     var nav = '<div class="f-nav"><button type="button" class="btn btn-ghost" data-back' + (multi ? " hidden" : " hidden") + '>Back</button><span class="f-spacer"></span>' +
       (multi ? '<button type="button" class="btn btn-primary" data-next>Next</button>' : "") +
       '<button type="submit" class="btn btn-copper"' + (multi ? " hidden" : "") + ">" + esc(def.submit) + "</button></div>";
-    el.innerHTML = '<form class="tform' + (compact ? " compact" : "") + '" novalidate>' + steps + pages + nav + '<p class="f-status" role="status" aria-live="polite"></p></form>' +
+    var terms = key === "activate" ? '<p class="f-terms">By sending, you agree to our <a href="terms.html" target="_blank" rel="noopener">Terms of use</a> and <a href="privacy.html" target="_blank" rel="noopener">Privacy policy</a>.</p>' : "";
+    el.innerHTML = '<form class="tform' + (compact ? " compact" : "") + '" novalidate>' + steps + pages + terms + nav + '<p class="f-status" role="status" aria-live="polite"></p></form>' +
       '<div class="f-done" hidden tabindex="-1"><span class="f-tick" aria-hidden="true"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><h3>' + esc(def.done[0]) + "</h3><p>" + esc(def.done[1]) + '</p><p class="f-help">Questions? Email ' + esc(EMAIL) + "</p></div>";
     wire(el, def);
   }
