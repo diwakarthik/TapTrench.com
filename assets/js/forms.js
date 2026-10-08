@@ -133,6 +133,13 @@
     wire(el, def);
   }
 
+  /* "g.page/r/abc", "www.site.com", "http//x.com" → "https://…" */
+  function fixUrl(v) {
+    v = v.replace(/\s+/g, "");
+    if (/^https?:\/\//i.test(v)) return v;
+    v = v.replace(/^(https?)?:?\/*/i, "");
+    return "https://" + v;
+  }
   function setErr(scope, msg) { var p = scope.querySelector(".f-err"); if (p) p.textContent = msg || ""; scope.classList.toggle("bad", !!msg); }
 
   function validatePage(page) {
@@ -148,9 +155,10 @@
           if (msg || i.disabled || i.type === "checkbox") return;
           var v = (i.value || "").trim();
           if (i.type === "radio") { if (i.required && !fs.querySelector('input[type="radio"]:checked')) msg = "Please choose one option."; return; }
+          if (v && i.type === "url") { v = fixUrl(v); i.value = v; }
           if (i.required && !v) msg = "This field is required.";
           else if (v && i.type === "email" && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) msg = "Please enter a valid email address.";
-          else if (v && i.type === "url" && !/^https?:\/\/[^\s.]+\.[^\s]+$/i.test(v)) msg = "Please paste the full link, starting with https://";
+          else if (v && i.type === "url" && !/^https?:\/\/[^\s\/.]+(\.[^\s\/.]+)+(\/\S*)?$/i.test(v)) msg = "That doesn’t look like a web link. Please copy it from your browser’s address bar (e.g. https://g.page/r/…/review).";
         });
       }
       var other = fs.querySelector("[data-other]:checked");
@@ -179,6 +187,7 @@
       var t = e.target, fs = t.closest(".f-field");
       if (fs) { var o = fs.querySelector(".f-other .f-input"); if (o) { var on = !!fs.querySelector("[data-other]:checked"); o.disabled = !on; if (on && t.hasAttribute("data-other")) o.focus(); } if (fs.classList.contains("bad")) setErr(fs, ""); }
     });
+    form.addEventListener("focusout", function (e) { var t = e.target; if (t.type === "url" && t.value.trim()) t.value = fixUrl(t.value.trim()); });
     form.addEventListener("input", function (e) { var fs = e.target.closest(".f-field"); if (fs && fs.classList.contains("bad")) setErr(fs, ""); });
     form.addEventListener("submit", function (e) {
       e.preventDefault();

@@ -490,10 +490,7 @@ select.f-input{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www
 
 /* brand logos: full logo on a white chip in both themes; brands without a logo show their name */
 .brand{background:#fff;border-color:#E3D8CC;width:170px;min-width:0;height:72px;padding:10px 18px;gap:0}
-.brand img{width:auto;height:auto;max-height:42px;max-width:134px;filter:grayscale(1) contrast(1.15);opacity:.8}
+.brand img{width:auto;height:auto;max-height:42px;max-width:134px;filter:none;opacity:1}
 .brand .wordmark{color:#3F3A35;opacity:1;font-size:16px;white-space:normal;text-align:center;line-height:1.15}
-.brand:hover img{filter:none;opacity:1}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .brand img{filter:grayscale(1) contrast(1.15)}}
-:root[data-theme="dark"] .brand img{filter:grayscale(1) contrast(1.15)}
-:root .brand:hover img{filter:none}
-@media (hover:none){:root .brand img{filter:none!important;opacity:1}}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .brand img{filter:none}}
+:root[data-theme="dark"] .brand img{filter:none}
