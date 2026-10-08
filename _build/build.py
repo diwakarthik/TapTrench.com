@@ -247,8 +247,8 @@ def header(active):
 <a class="btn btn-primary nav-cta" href="activate.html">Activate your product</a>
 <button class="icon-btn menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu" data-menu>{icon("menu",20,2,"i-menu")}{icon("close",20,2,"i-close").replace("<svg", "<svg hidden",1)}</button>
 </div></div>
-<nav class="mobile-menu" id="mobile-menu" aria-label="Mobile"><ul>{links}</ul><a class="btn btn-copper" href="activate.html">Activate your product</a></nav>
-</header>"""
+</header>
+<nav class="mobile-menu" id="mobile-menu" aria-label="Mobile"><ul>{links}</ul><a class="btn btn-copper" href="activate.html">Activate your product</a></nav>"""
 
 def footer():
     s = SITE["socials"]
@@ -276,6 +276,7 @@ def overlays():
 <div class="drawer-body">{icon("bag",48,1.5)}<p><b style="color:var(--tt-ink)">Your cart is empty.</b></p><p style="font-size:15px">Our plates are selling faster than we can make them. Join the waitlist and we'll reserve yours from the next batch.</p><button class="btn btn-copper btn-shine" type="button" data-waitlist="checkout">{icon("bell",18)} Join the waitlist</button><a class="btn btn-ghost" href="shop.html">Browse the shop</a><div class="pay-row" style="justify-content:center;margin-top:10px">{PAY_ROW}</div></div></aside>
 <div class="modal-back" data-modal role="dialog" aria-modal="true" aria-labelledby="wl-title"><div class="modal"><button class="icon-btn modal-close" type="button" data-modal-close aria-label="Close">{icon("close")}</button><div class="modal-head"><span class="eyebrow">Next batch</span><h2 id="wl-title">Be first in line.</h2><p class="muted" data-modal-sub></p></div><div class="modal-body" data-modal-body></div></div></div>
 <script src="assets/js/config.js" defer></script>
+<script src="assets/js/forms.js" defer></script>
 <script src="assets/js/main.js" defer></script>"""
 
 def page(p, body):

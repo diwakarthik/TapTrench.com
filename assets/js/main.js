@@ -19,7 +19,6 @@
     if (url) return '<iframe src="' + esc(url) + '" title="' + esc(title) + '" loading="lazy">Loading…</iframe>';
     return '<div class="form-fallback"><h3>Our form is getting a polish.</h3><p class="muted">In the meantime, email us and we\'ll reply within one business day.</p><a class="btn btn-copper" href="mailto:' + esc(EMAIL) + "?subject=" + encodeURIComponent(title) + '">' + esc(EMAIL) + '</a><p class="muted" style="font-size:14px">Email: <span style="user-select:all">' + esc(EMAIL) + "</span></p></div>";
   }
-  $$("[data-form]").forEach(function (el) { el.innerHTML = formEmbed((TT.forms || {})[el.getAttribute("data-form")], el.getAttribute("data-form-title") || "Tap Trench enquiry"); });
 
   /* ---------- Brand carousel (two rows, any number of brands) ---------- */
   var rows = $("[data-brands]");
@@ -68,7 +67,12 @@
     sub.textContent = what === "checkout"
       ? "We're between production runs. Reserve your plates now and we'll contact you the moment the next batch is ready."
       : "This one sold out fast. Leave your details and we'll reserve one for you from the next production run.";
-    $("[data-modal-body]").innerHTML = formEmbed((TT.forms || {}).waitlist, "Tap Trench waitlist" + (what && what !== "checkout" ? " — " + what : ""));
+    var mb = $("[data-modal-body]");
+    if (window.TTForms) {
+      window.TTForms.render(mb, "waitlist", true);
+      var match = what && what !== "checkout" ? $$('input[type="checkbox"]', mb).filter(function (c) { return what.indexOf(c.value.split(" — ")[0]) === 0; })[0] : null;
+      if (match) match.checked = true;
+    } else mb.innerHTML = formEmbed((TT.forms || {}).waitlist, "Tap Trench waitlist");
     modal.classList.add("open"); document.body.style.overflow = "hidden";
     setTimeout(function () { var c = $("[data-modal-close]"); if (c) c.focus(); }, 40);
   }
@@ -89,6 +93,7 @@
     else if (t.closest("[data-modal-close]") || t === modal) closeModal();
     else if (t.closest("[data-menu]")) {
       var m = $("#mobile-menu"), b = t.closest("[data-menu]"), open = m.classList.toggle("open");
+      if (open) m.style.top = Math.max(0, $(".site-header").getBoundingClientRect().bottom) + "px";
       b.setAttribute("aria-expanded", String(open));
       $(".i-menu", b).toggleAttribute("hidden", open); $(".i-close", b).toggleAttribute("hidden", !open);
       document.body.style.overflow = open ? "hidden" : "";
