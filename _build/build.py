@@ -573,10 +573,10 @@ add("activate.html", {"title": "Activate Your Tap Trench Product | Tap Trench",
 <div>
 <span class="eyebrow">Activate</span>
 <h1 style="font-size:clamp(40px,5.4vw,70px);font-weight:800;letter-spacing:-.04em;margin:16px 0">Activate your product.</h1>
-<p class="lead">Bought a Tap Trench plate? Fill in the form with your order details and your link. Our authorised team programs it into your plate's secure chip and locks it in.</p>
+<p class="lead">Bought a Tap Trench plate? It takes about a minute: tell us who you are, how many plates you have and the link they should open. Our authorised team programs it into your plate's secure chip and locks it in.</p>
 <ol class="timeline" style="margin-top:30px">
 <li><div><h3>Copy your review link</h3><p>Google Business Profile → “Get more reviews” → copy the link. For menu plates, copy your online menu link.</p></div></li>
-<li><div><h3>Submit the form</h3><p>Include your order number, business name and the link.</p></div></li>
+<li><div><h3>Send the form</h3><p>Your name, email, business name, how many plates, and the link. That's it.</p></div></li>
 <li><div><h3>We program and lock it</h3><p>Your plate is set up permanently, ready for unlimited taps.</p></div></li>
 </ol>
 <div class="notice"><b>Please double-check your link.</b> Once it's programmed, it's locked for security and can't be changed.</div>

@@ -10,39 +10,35 @@
   var FORMS = {
     activate: {
       id: "1FAIpQLSelJHY2-ykU2Tcx6N6MfOp8g4mNb7dVfue6CrZJ1WusC9VIUw",
-      submit: "Send activation details",
-      done: ["Activation details received", "Our team will program and lock your plates and email you as soon as they're ready."],
+      gPages: 4, /* sections in the Google Form (the website groups them into 3 steps) */
+      submit: "Activate my plates",
+      done: ["You're all set", "We'll program and lock your plates and email you as soon as they're ready."],
       pages: [
-        { title: "Your details", fields: [
-          { e: 1191842036, l: "Your full name", req: 1, ac: "name" },
-          { e: 977231918, l: "Email address", t: "email", req: 1, h: "We'll send your activation confirmation here.", ac: "email" },
-          { e: 2078343194, l: "Mobile number (with country code)", t: "tel", req: 1, ph: "+61 400 000 000", ac: "tel" },
-          { e: 1415482947, l: "Your role", ph: "e.g. Owner, Manager" }
+        { title: "You", fields: [
+          { e: 1191842036, l: "Your name", req: 1, ac: "name" },
+          { e: 977231918, l: "Email", t: "email", req: 1, h: "We'll confirm here once your plates are ready.", ac: "email" },
+          { e: 1121151606, l: "Business name", req: 1, h: "As it appears on Google.", ac: "organization" },
+          { e: 2078343194, l: "Mobile", t: "tel", ph: "+61 400 000 000", ac: "tel" }
         ] },
-        { title: "Your business", fields: [
-          { e: 1121151606, l: "Business name", req: 1, h: "Exactly as it appears on Google.", ac: "organization" },
-          { e: 1834446935, l: "Type of business", t: "select", req: 1, o: ["Café", "Restaurant / Bar", "Salon / Barber / Beauty", "Retail store", "Health / Clinic / Dental", "Gym / Fitness", "Trades / Services", "Hotel / Accommodation", "Other"] },
-          { e: 959914321, l: "Business address", t: "textarea", req: 1, h: "Street, suburb/city, state, postcode, country", ac: "street-address" },
-          { e: 1627294790, l: "Business phone", t: "tel" },
-          { e: 1028214666, l: "Website or social page" }
+        { title: "Your plates", fields: [
+          { t: "qty", req: 1, l: "How many of each?", e: 1881732209, qe: 837839969, o: [
+            { v: PLATES[0], n: "Star Tile", d: "Google review · square", k: "review" },
+            { v: PLATES[1], n: "Menu Tile", d: "Menu · square", k: "menu" },
+            { v: PLATES[2], n: "Menu Disc", d: "Menu · round", k: "menu" }
+          ] },
+          { e: 1661595896, l: "Where did you get them?", t: "radio", inline: 1, def: 0, o: ["In person from a Tap Trench rep", "Tap Trench website", "A Tap Trench reseller"] },
+          { e: 1059352874, l: "Order number", h: "Only if you bought online. It's in your order confirmation email." }
         ] },
-        { title: "Your order", fields: [
-          { e: 1059352874, l: "Order number", req: 1, h: "From your order confirmation email." },
-          { e: 1661595896, l: "Where did you buy your plates?", t: "radio", req: 1, o: ["Tap Trench website", "A Tap Trench reseller"], other: 1 },
-          { e: 1881732209, l: "Which plates are you activating?", t: "checkbox", req: 1, o: PLATES },
-          { e: 837839969, l: "How many of each?", req: 1, ph: "e.g. 2 Star Tiles, 6 Menu Discs" }
-        ] },
-        { title: "Your link", intro: "This is the page your customers will see when they tap. Please double-check it: once programmed, it's locked for security and can't be changed.", fields: [
-          { e: 1454471007, l: "Google review link", t: "url", ph: "https://g.page/r/…/review", guide: [
-            "Sign in to the Google account that manages your business.",
-            "Search your business name on Google or open Google Maps, then open your Business Profile (or go to business.google.com).",
-            "Tap “Get more reviews” (it may also say “Ask for reviews” or “Share review form”).",
+        { title: "Your link", intro: "This is the page your customers see when they tap. Once programmed, it's locked for security and can't be changed, so please double-check it.", fields: [
+          { e: 1454471007, l: "Google review link", t: "url", show: "review", ph: "https://g.page/r/…/review", guide: [
+            "Open Google Maps and find your business (sign in with the account that manages it).",
+            "Tap “Get more reviews” (or “Ask for reviews”).",
             "Tap “Copy link” and paste it here."
-          ], h: "For Star Tile plates. Leave blank if you only bought menu plates." },
-          { e: 1394165780, l: "Menu or ordering link", t: "url", ph: "https://", h: "For Menu Tile / Menu Disc plates. Open your online menu, copy the address from the address bar and paste it here. Leave blank if you only bought review plates." },
-          { e: 1917050677, l: "Different links for different plates?", t: "textarea", h: "e.g. one plate per location. Tell us which link goes on which plate." },
+          ], h: "Can't find it? Leave it blank and we'll help you by email." },
+          { e: 1394165780, l: "Menu or ordering link", t: "url", show: "menu", ph: "https://", h: "Open your online menu and copy the address from the address bar. Can't find it? Leave it blank and we'll help." },
+          { e: 1917050677, l: "Different links for different plates?", t: "textarea", rows: 2, h: "e.g. one plate per location. Tell us which link goes on which plate." },
           { e: 1073334593, l: "Please confirm", t: "checkbox", req: 1, o: ["I have checked my link(s). I understand they will be permanently locked into my plate(s) and can't be changed afterwards."] },
-          { e: 75011998, l: "Anything else we should know?", t: "textarea" }
+          { e: 75011998, l: "Anything else?", t: "textarea", rows: 2 }
         ] }
       ]
     },
@@ -97,7 +93,19 @@
   var uid = 0;
   function esc(s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
 
+  function qtyHtml(f, key) {
+    var rows = f.o.map(function (p, i) {
+      var id = "q-" + key + "-" + i;
+      return '<div class="f-qty-row"><label for="' + id + '"><b>' + esc(p.n) + "</b><small>" + esc(p.d) + '</small></label>' +
+        '<div class="f-stepper"><button type="button" data-step-btn="-1" aria-label="One fewer ' + esc(p.n) + '">−</button>' +
+        '<input id="' + id + '" type="number" inputmode="numeric" min="0" max="999" value="0" data-qty="' + esc(p.v) + '" data-qname="' + esc(p.n) + '" data-kind="' + p.k + '">' +
+        '<button type="button" data-step-btn="1" aria-label="One more ' + esc(p.n) + '">+</button></div></div>';
+    }).join("");
+    return '<fieldset class="f-field f-qty" data-qty-group data-e="' + f.e + '" data-qe="' + f.qe + '"><legend>' + esc(f.l) + ' <span class="req" aria-hidden="true">*</span></legend>' + rows + '<p class="f-err" role="alert"></p></fieldset>';
+  }
+
   function fieldHtml(f, key) {
+    if (f.t === "qty") return qtyHtml(f, key);
     var id = "f-" + key + "-" + f.e, t = f.t || "text", req = f.req ? " required" : "";
     var star = f.req ? ' <span class="req" aria-hidden="true">*</span>' : ' <span class="opt">optional</span>';
     var help = f.h ? '<p class="f-help" id="' + id + '-h">' + esc(f.h) + "</p>" : "";
@@ -106,7 +114,7 @@
     var cls = "f-field" + (f.half ? " half" : "");
     if (t === "radio" || t === "checkbox") {
       var opts = f.o.map(function (o, i) {
-        return '<label class="f-choice"><input type="' + t + '" name="entry.' + f.e + '" value="' + esc(o) + '"' + (t === "radio" && f.req ? " required" : "") + '><span>' + esc(o) + "</span></label>";
+        return '<label class="f-choice"><input type="' + t + '" name="entry.' + f.e + '" value="' + esc(o) + '"' + (t === "radio" && f.req ? " required" : "") + (f.def === i ? " checked" : "") + '><span>' + esc(o) + "</span></label>";
       }).join("");
       if (f.other) opts += '<label class="f-choice f-other"><input type="' + t + '" name="entry.' + f.e + '" value="__other_option__" data-other><span>Other:</span><input type="text" class="f-input" name="entry.' + f.e + '.other_option_response" aria-label="' + esc(f.l) + ' (other)" disabled></label>';
       return '<fieldset class="' + cls + '"' + (t === "checkbox" && f.req ? ' data-req-group="entry.' + f.e + '"' : "") + desc + '><legend>' + esc(f.l) + star + "</legend>" + help + '<div class="f-choices' + (f.inline ? " inline" : "") + '">' + opts + '</div><p class="f-err" role="alert"></p></fieldset>';
@@ -115,7 +123,7 @@
     if (t === "textarea") input = '<textarea class="f-input" id="' + id + '" name="entry.' + f.e + '" rows="' + (f.rows || 3) + '"' + req + desc + "></textarea>";
     else if (t === "select") input = '<select class="f-input" id="' + id + '" name="entry.' + f.e + '"' + req + desc + '><option value="">Choose one…</option>' + f.o.map(function (o) { return '<option>' + esc(o) + "</option>"; }).join("") + "</select>";
     else input = '<input class="f-input" id="' + id + '" type="' + t + '" name="entry.' + f.e + '"' + req + desc + (f.ph ? ' placeholder="' + esc(f.ph) + '"' : "") + (f.ac ? ' autocomplete="' + f.ac + '"' : "") + (t === "url" ? ' inputmode="url" autocapitalize="off" spellcheck="false"' : "") + ">";
-    return '<div class="' + cls + '"><label for="' + id + '">' + esc(f.l) + star + "</label>" + guide + help + input + '<p class="f-err" role="alert"></p></div>';
+    return '<div class="' + cls + '"' + (f.show ? ' data-show="' + f.show + '"' : "") + '><label for="' + id + '">' + esc(f.l) + star + "</label>" + guide + help + input + '<p class="f-err" role="alert"></p></div>';
   }
 
   function render(el, key, compact) {
@@ -147,6 +155,13 @@
     var ok = true, first = null;
     page.querySelectorAll(".f-field").forEach(function (fs) {
       var msg = "";
+      if (fs.hasAttribute("data-qty-group")) {
+        var total = 0; fs.querySelectorAll("[data-qty]").forEach(function (q) { total += Math.max(0, parseInt(q.value, 10) || 0); });
+        setErr(fs, total ? "" : "Add at least one plate.");
+        if (!total) { ok = false; if (!first) first = fs; }
+        return;
+      }
+      if (fs.hidden) return;
       var group = fs.getAttribute("data-req-group");
       var inputs = fs.querySelectorAll("input, textarea, select");
       if (group) {
@@ -174,7 +189,17 @@
   function wire(el, def) {
     var form = el.querySelector("form"), pages = form.querySelectorAll(".f-page"), cur = 0;
     var back = form.querySelector("[data-back]"), next = form.querySelector("[data-next]"), submit = form.querySelector('[type="submit"]'), status = form.querySelector(".f-status");
+    function syncLinks() {
+      var kinds = {};
+      form.querySelectorAll("[data-qty]").forEach(function (q) { if ((parseInt(q.value, 10) || 0) > 0) kinds[q.getAttribute("data-kind")] = 1; });
+      var any = Object.keys(kinds).length > 0;
+      form.querySelectorAll("[data-show]").forEach(function (fs) {
+        var on = !any || !!kinds[fs.getAttribute("data-show")];
+        fs.hidden = !on; fs.querySelectorAll("input, textarea").forEach(function (x) { x.disabled = !on; });
+      });
+    }
     function show(i) {
+      syncLinks();
       pages[cur].hidden = true; cur = i; pages[cur].hidden = false;
       form.querySelectorAll("[data-step]").forEach(function (s, k) { s.classList.toggle("on", k === cur); s.classList.toggle("done", k < cur); if (k === cur) s.setAttribute("aria-current", "step"); else s.removeAttribute("aria-current"); });
       back.hidden = cur === 0; if (next) next.hidden = cur === pages.length - 1; submit.hidden = cur !== pages.length - 1;
@@ -188,6 +213,15 @@
       var t = e.target, fs = t.closest(".f-field");
       if (fs) { var o = fs.querySelector(".f-other .f-input"); if (o) { var on = !!fs.querySelector("[data-other]:checked"); o.disabled = !on; if (on && t.hasAttribute("data-other")) o.focus(); } if (fs.classList.contains("bad")) setErr(fs, ""); }
     });
+    form.addEventListener("click", function (e) {
+      var btn = e.target.closest("[data-step-btn]"); if (!btn) return;
+      var inp = btn.parentNode.querySelector("[data-qty]");
+      inp.value = Math.min(999, Math.max(0, (parseInt(inp.value, 10) || 0) + (+btn.getAttribute("data-step-btn"))));
+      inp.dispatchEvent(new Event("input", { bubbles: true }));
+    });
+    form.addEventListener("focusout", function (e) {
+      if (e.target.hasAttribute && e.target.hasAttribute("data-qty")) e.target.value = Math.min(999, Math.max(0, parseInt(e.target.value, 10) || 0));
+    });
     form.addEventListener("focusout", function (e) { var t = e.target; if (t.type === "url" && t.value.trim()) t.value = fixUrl(t.value.trim()); });
     form.addEventListener("input", function (e) { var fs = e.target.closest(".f-field"); if (fs && fs.classList.contains("bad")) setErr(fs, ""); });
     form.addEventListener("submit", function (e) {
@@ -200,7 +234,17 @@
         var v = (i.value || "").trim(); if (!v) return;
         data.append(i.name, v);
       });
-      if (pages.length > 1) data.append("pageHistory", Array.from({ length: pages.length }, function (_, k) { return k; }).join(","));
+      form.querySelectorAll("[data-qty-group]").forEach(function (g) {
+        var parts = [];
+        g.querySelectorAll("[data-qty]").forEach(function (q) {
+          var n = parseInt(q.value, 10) || 0; if (n < 1) return;
+          data.append("entry." + g.getAttribute("data-e"), q.getAttribute("data-qty"));
+          parts.push(n + " × " + q.getAttribute("data-qname"));
+        });
+        data.append("entry." + g.getAttribute("data-qe"), parts.join(", "));
+      });
+      var gp = def.gPages || pages.length;
+      if (gp > 1) data.append("pageHistory", Array.from({ length: gp }, function (_, k) { return k; }).join(","));
       data.append("fvv", "1");
       submit.disabled = true; submit.textContent = "Sending…"; status.textContent = "";
       fetch("https://docs.google.com/forms/d/e/" + def.id + "/formResponse", { method: "POST", mode: "no-cors", body: data })
