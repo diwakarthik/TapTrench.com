@@ -27,7 +27,7 @@ SITE = {
     "name": "Tap Trench",
     "url": "https://taptrench.com",          # canonical domain (used for SEO tags + sitemap)
     "tagline": "In the trenches with you.",
-    "email": "taptrench@gmail.com",
+    "email": "hello@taptrench.com",
     "phone": "",                              # e.g. "02 0000 0000" — "" hides it
     "address": "Sydney, NSW, Australia",
     "hours": "Monday – Friday, 9am – 5pm AEST",
